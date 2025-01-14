@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Contact Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url();
+            background-color:aqua;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            text-align: center;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .form-container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+        }
+        h1 {
+            margin-top: 0;
+        }
+        label {
+            display: block;
+            margin-bottom: px;
+            text-align: left;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .karachi {
+            color: white;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            input, textarea {
+                font-size: 14px;
+            }
+            button {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+    (function(){
+        emailjs.init("iMaD9R_egHiawPAuT"); // Replace with your actual public key
+    })();
+    </script>
+</head>
+<body>
+    <div class="form-container">
+        <h1 class="karachi">Contact Form</h1>
+        <label for="userName" class="karachi">
+             Full Name:
+            <input class="karachi" type="text" id="userName" required>
+        </label>
+        <label for="email" class="karachi">
+            Email:
+            <input type="email" id="email" required>
+        </label>
+        <label for="subject" class="karachi">
+            Subject:
+            <input type="text" id="subject" required>
+        </label>
+        <label for="message" class="karachi">
+            Message:
+            <textarea id="message" required></textarea>
+        </label>
+        <button onclick="submitForm()">Submit</button>
+    </div>
+
+    <script>
+        function submitForm() {
+            // Get form values
+            let userName = document.getElementById("userName").value;
+            let userEmail = document.getElementById("email").value;
+            let subject = document.getElementById("subject").value;
+            let userMessage = document.getElementById("message").value;
+
+            // Check if fields are not empty
+            if (!userName || !userEmail || !subject || !userMessage) {
+                alert("Please fill out all fields.");
+                return;
+            }
+
+            // Prepare EmailJS params
+            let params = {
+                userName: userName,
+                email: userEmail,
+                subject: subject,
+                message: userMessage
+            };
+
+            // Send email using EmailJS
+            emailjs
+                .send("service_rr6i3p7", "template_o8rijxq", params)
+                .then((response) => {
+                    alert("Email sent successfully!");
+                    console.log("Success:", response.status, response.text);
+                })
+                .catch((error) => {
+                    alert("Failed to send email. Please try again.");
+                    console.error("Error:", error);
+                });
+        }
+    </script>
+</body>
+</html>
